@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Search, Star, TrendingUp, ArrowRight, Sparkles } from 'lucide-react';
+import { Search, Star, TrendingUp, ArrowRight, Sparkles, Download, Apple } from 'lucide-react';
 import { useTools } from '../contexts/ToolsContext';
 import ToolCard from '../components/ToolCard';
 
@@ -311,6 +311,110 @@ const CategoryCount = styled.span`
   font-size: 0.9rem;
 `;
 
+const DownloadSection = styled.section`
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border-radius: 20px;
+  padding: 3rem;
+  margin-bottom: 3rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+  }
+`;
+
+const DownloadContent = styled.div`
+  flex: 1;
+`;
+
+const DownloadTitle = styled.h2`
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+`;
+
+const DownloadDescription = styled.p`
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+`;
+
+const DownloadFeatures = styled.div`
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+
+const DownloadFeature = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+`;
+
+const DownloadButtonGroup = styled.div`
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const DownloadButton = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  
+  &:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const SecondaryDownloadButton = styled(DownloadButton)`
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+`;
+
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
@@ -382,6 +486,42 @@ function HomePage() {
           <StatLabel>Monthly Users</StatLabel>
         </StatCard>
       </StatsSection>
+
+      <DownloadSection>
+        <DownloadContent>
+          <DownloadTitle>
+            <Apple size={28} />
+            Download Mac App
+          </DownloadTitle>
+          <DownloadDescription>
+            Get the AIverse Mac desktop app for the best experience. Works offline with all features included.
+          </DownloadDescription>
+          <DownloadFeatures>
+            <DownloadFeature>
+              <Download size={16} />
+              <span>Works Offline</span>
+            </DownloadFeature>
+            <DownloadFeature>
+              <Star size={16} />
+              <span>1,000+ AI Tools</span>
+            </DownloadFeature>
+            <DownloadFeature>
+              <Sparkles size={16} />
+              <span>Native Performance</span>
+            </DownloadFeature>
+          </DownloadFeatures>
+        </DownloadContent>
+        <DownloadButtonGroup>
+          <DownloadButton href="https://github.com/mrenee1/aiverse/releases" target="_blank" rel="noopener noreferrer">
+            <Download size={20} />
+            Download for Mac
+          </DownloadButton>
+          <SecondaryDownloadButton href="https://github.com/mrenee1/aiverse" target="_blank" rel="noopener noreferrer">
+            <ArrowRight size={20} />
+            View on GitHub
+          </SecondaryDownloadButton>
+        </DownloadButtonGroup>
+      </DownloadSection>
 
       {productOfTheDay && (
         <ProductOfTheDay>

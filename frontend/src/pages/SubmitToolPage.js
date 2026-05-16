@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Plus, Upload, CheckCircle, AlertCircle } from 'lucide-react';
+import { useTools } from '../contexts/ToolsContext';
 const SubmitContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;

@@ -57,16 +57,11 @@
           ]
         }
       ],
-      "icon": "public/icon.icns",
-      "hardenedRuntime": true,
-      "gatekeeperAssess": false,
-      "entitlements": "public/entitlements.mac.plist",
-      "entitlementsInherit": "public/entitlements.mac.plist"
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false
     },
     "dmg": {
       "title": "AIverse Installer",
-      "icon": "public/volume.icns",
-      "background": "public/dmg-background.png",
       "contents": [
         {
           "x": 130,
