@@ -512,13 +512,13 @@ function HomePage() {
           </DownloadFeatures>
         </DownloadContent>
         <DownloadButtonGroup>
-          <DownloadButton href="https://github.com/mrenee1/aiverse/releases/latest/download/AIverse.dmg" download="AIverse.dmg">
+          <DownloadButton href="https://github.com/mrenee1/aiverse/releases/latest/download/AIverse-1.0.0-arm64.dmg" download="AIverse-arm64.dmg">
             <Download size={20} />
-            Download for Mac
+            Download – Apple Silicon
           </DownloadButton>
-          <SecondaryDownloadButton href="https://github.com/mrenee1/aiverse" target="_blank" rel="noopener noreferrer">
-            <ArrowRight size={20} />
-            View on GitHub
+          <SecondaryDownloadButton href="https://github.com/mrenee1/aiverse/releases/latest/download/AIverse-1.0.0.dmg" download="AIverse-intel.dmg">
+            <Download size={20} />
+            Download – Intel Mac
           </SecondaryDownloadButton>
         </DownloadButtonGroup>
       </DownloadSection>

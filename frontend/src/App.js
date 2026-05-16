@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom';
+
+// Electron exposes window.electronAPI via preload.js; use HashRouter there
+// because the file:// protocol doesn't support the History API.
+const Router = window.electronAPI ? HashRouter : BrowserRouter;
 import styled, { createGlobalStyle } from 'styled-components';
 import Navigation from './components/Navigation';
 import Sidebar from './components/Sidebar';

@@ -13,8 +13,8 @@
     "start": "cd backend && npm start",
     "electron": "electron .",
     "electron-dev": "concurrently \"npm run server\" \"wait-on http://localhost:3000 && electron .\"",
-    "electron-pack": "cd frontend && npm run build && cd .. && electron-builder",
-    "dist": "cd frontend && npm run build && cd .. && electron-builder --publish=never"
+    "electron-pack": "cd frontend && PUBLIC_URL=. npm run build && cd .. && rm -rf build && cp -r frontend/build build && electron-builder",
+    "dist": "cd frontend && PUBLIC_URL=. npm run build && cd .. && rm -rf build && cp -r frontend/build build && electron-builder --publish=never"
   },
   "keywords": [
     "ai",
@@ -42,7 +42,6 @@
     },
     "files": [
       "build/**/*",
-      "node_modules/**/*",
       "public/electron.js",
       "public/preload.js"
     ],

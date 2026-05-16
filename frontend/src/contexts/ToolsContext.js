@@ -16,7 +16,10 @@ export const ToolsProvider = ({ children }) => {
     const loadStaticData = async () => {
       setLoading(true);
       try {
-        const response = await fetch('/data/tools.json');
+        // file:// protocol (Electron) resolves absolute paths from filesystem
+        // root, so use a relative path there; web uses the absolute path.
+        const dataUrl = window.electronAPI ? './data/tools.json' : '/data/tools.json';
+        const response = await fetch(dataUrl);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
