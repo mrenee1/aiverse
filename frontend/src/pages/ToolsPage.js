@@ -308,7 +308,7 @@ function ToolsPage() {
     } else {
       fetchTools(params);
     }
-  }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const handleSearch = (e) => {
     e.preventDefault();
