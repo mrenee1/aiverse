@@ -1,0 +1,88 @@
+{
+  "name": "aiverse",
+  "version": "1.0.0",
+  "description": "AI Tools Directory - A comprehensive directory of 1,000 AI tools",
+  "main": "public/electron.js",
+  "homepage": "./",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend && npm start",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "electron": "electron .",
+    "electron-dev": "concurrently \"npm run server\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack": "cd frontend && npm run build && cd .. && electron-builder",
+    "dist": "cd frontend && npm run build && cd .. && electron-builder --publish=never"
+  },
+  "keywords": [
+    "ai",
+    "tools",
+    "directory",
+    "react",
+    "nodejs",
+    "electron",
+    "mac",
+    "desktop"
+  ],
+  "author": "AIverse Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1",
+    "wait-on": "^9.0.10"
+  },
+  "build": {
+    "appId": "com.aiverse.app",
+    "productName": "AIverse",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "public/electron.js",
+      "public/preload.js"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "public/icon.icns",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "public/entitlements.mac.plist",
+      "entitlementsInherit": "public/entitlements.mac.plist"
+    },
+    "dmg": {
+      "title": "AIverse Installer",
+      "icon": "public/volume.icns",
+      "background": "public/dmg-background.png",
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
