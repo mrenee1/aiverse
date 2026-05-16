@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { ExternalLink, Star, TrendingUp, Tag, Share2, Heart, MessageCircle, Calendar, User, Globe } from 'lucide-react';
+import { ArrowRight, ExternalLink, Share2, Star, TrendingUp, Clock, Tag, CheckCircle } from 'lucide-react';
 import { useTools } from '../contexts/ToolsContext';
 
 const DetailContainer = styled.div`
@@ -306,7 +306,6 @@ function ToolDetailPage() {
   useEffect(() => {
     const fetchTool = async () => {
       try {
-        setLoading(true);
         const toolData = await fetchToolById(id);
         if (toolData) {
           setTool(toolData);
@@ -331,6 +330,7 @@ function ToolDetailPage() {
     };
 
     fetchTool();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleVisitWebsite = () => {

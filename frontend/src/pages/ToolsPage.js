@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Search, Filter, Grid, List, ChevronDown, Star, TrendingUp } from 'lucide-react';
+import { Search, Grid, List, Star, TrendingUp, ArrowRight } from 'lucide-react';
 import { useTools } from '../contexts/ToolsContext';
 import ToolCard from '../components/ToolCard';
 
@@ -308,7 +308,7 @@ function ToolsPage() {
     } else {
       fetchTools(params);
     }
-  }, [searchParams]);
+  }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSearch = (e) => {
     e.preventDefault();

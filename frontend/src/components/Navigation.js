@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Search, Menu, X, Plus, Bell, CreditCard } from 'lucide-react';
+import { Search, Menu, X, Plus } from 'lucide-react';
 const NavContainer = styled.nav`
   position: fixed;
   top: 0;
@@ -111,15 +111,6 @@ const PrimaryButton = styled(Button)`
   }
 `;
 
-const SecondaryButton = styled(Button)`
-  background: #f1f5f9;
-  color: #475569;
-  
-  &:hover {
-    background: #e2e8f0;
-  }
-`;
-
 const MobileMenuButton = styled.button`
   display: none;
   background: none;
@@ -152,50 +143,6 @@ const MobileMenuLink = styled(Link)`
   &:hover {
     background: #f1f5f9;
     color: #3b82f6;
-  }
-`;
-
-const UserMenu = styled.div`
-  position: relative;
-`;
-
-const UserMenuButton = styled(Button)`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  background: #f1f5f9;
-  color: #475569;
-  border-radius: 8px;
-`;
-
-const UserMenuDropdown = styled.div`
-  position: absolute;
-  top: 100%;
-  right: 0;
-  margin-top: 0.5rem;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  min-width: 200px;
-  display: ${props => props.open ? 'block' : 'none'};
-  z-index: 1001;
-`;
-
-const DropdownItem = styled(Link)`
-  display: block;
-  padding: 0.75rem 1rem;
-  color: #64748b;
-  border-bottom: 1px solid #f1f5f9;
-  
-  &:hover {
-    background: #f8fafc;
-    color: #3b82f6;
-  }
-  
-  &:last-child {
-    border-bottom: none;
   }
 `;
 
