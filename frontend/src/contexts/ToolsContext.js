@@ -16,7 +16,15 @@ export const ToolsProvider = ({ children }) => {
       setLoading(true);
       try {
         const response = await fetch('/data/tools.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
+        
+        if (!Array.isArray(data)) {
+          throw new Error('Data is not an array');
+        }
+        
         setTools(data);
         
         // Extract categories
@@ -38,6 +46,11 @@ export const ToolsProvider = ({ children }) => {
       } catch (err) {
         setError('Failed to load tools data');
         console.error('Error loading static data:', err);
+        // Set fallback data to prevent white screen
+        setTools([]);
+        setCategories([]);
+        setFeaturedTools([]);
+        setProductOfTheDay(null);
       } finally {
         setLoading(false);
       }
@@ -48,40 +61,45 @@ export const ToolsProvider = ({ children }) => {
 
   // Filter tools locally
   const fetchTools = (filters = {}) => {
-    let filtered = [...tools];
-    
-    if (filters.category) {
-      filtered = filtered.filter(tool => tool.category === filters.category);
+    try {
+      let filtered = [...tools];
+      
+      if (filters.category) {
+        filtered = filtered.filter(tool => tool.category === filters.category);
+      }
+      if (filters.featured) {
+        filtered = filtered.filter(tool => tool.featured);
+      }
+      if (filters.deals) {
+        filtered = filtered.filter(tool => tool.deals);
+      }
+      if (filters.search) {
+        const searchLower = filters.search.toLowerCase();
+        filtered = filtered.filter(tool => 
+          tool.name.toLowerCase().includes(searchLower) ||
+          tool.description.toLowerCase().includes(searchLower) ||
+          (tool.tags && tool.tags.some(tag => tag.toLowerCase().includes(searchLower)))
+        );
+      }
+      
+      // Sort
+      if (filters.sort === 'popularity') {
+        filtered.sort((a, b) => b.popularity - a.popularity);
+      } else if (filters.sort === 'name') {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+      }
+      
+      // Pagination
+      const page = filters.page || 1;
+      const limit = filters.limit || 12;
+      const start = (page - 1) * limit;
+      const paginated = filtered.slice(start, start + limit);
+      
+      return { tools: paginated, total: filtered.length };
+    } catch (err) {
+      console.error('Error filtering tools:', err);
+      return { tools: [], total: 0 };
     }
-    if (filters.featured) {
-      filtered = filtered.filter(tool => tool.featured);
-    }
-    if (filters.deals) {
-      filtered = filtered.filter(tool => tool.deals);
-    }
-    if (filters.search) {
-      const searchLower = filters.search.toLowerCase();
-      filtered = filtered.filter(tool => 
-        tool.name.toLowerCase().includes(searchLower) ||
-        tool.description.toLowerCase().includes(searchLower) ||
-        tool.tags.some(tag => tag.toLowerCase().includes(searchLower))
-      );
-    }
-    
-    // Sort
-    if (filters.sort === 'popularity') {
-      filtered.sort((a, b) => b.popularity - a.popularity);
-    } else if (filters.sort === 'name') {
-      filtered.sort((a, b) => a.name.localeCompare(b.name));
-    }
-    
-    // Pagination
-    const page = filters.page || 1;
-    const limit = filters.limit || 12;
-    const start = (page - 1) * limit;
-    const paginated = filtered.slice(start, start + limit);
-    
-    return { tools: paginated, total: filtered.length };
   };
 
   // Search tools locally
