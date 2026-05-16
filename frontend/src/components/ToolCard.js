@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ExternalLink, Star, Tag, TrendingUp } from 'lucide-react';
+import { ExternalLink, Sparkles, Star, Tag, TrendingUp } from 'lucide-react';
 
 const CardContainer = styled.div`
   background: white;
@@ -126,14 +126,57 @@ const ToolLink = styled.a`
   padding: 0.5rem;
   border-radius: 8px;
   transition: all 0.2s;
-  
+
   &:hover {
     background: #3b82f6;
     color: white;
   }
 `;
 
+const CardActions = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+`;
+
+const PrimaryButton = styled.button`
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #2563eb;
+  }
+`;
+
+const SecondaryButton = styled.button`
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  background: white;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+  }
+`;
+
 function ToolCard({ tool }) {
+  const navigate = useNavigate();
+
   const handleExternalLink = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -141,7 +184,7 @@ function ToolCard({ tool }) {
   };
 
   return (
-    <Link to={`/tools/${tool._id}`}>
+    <Link to={`/tools/${encodeURIComponent(tool.name)}`}>
       <CardContainer>
         <ToolLink 
           href={tool.website}
@@ -175,7 +218,7 @@ function ToolCard({ tool }) {
         </ToolMeta>
         
         <CardActions>
-          <PrimaryButton onClick={() => navigate(`/tools/${tool.name}`)}>
+          <PrimaryButton onClick={(e) => { e.preventDefault(); navigate(`/tools/${encodeURIComponent(tool.name)}`); }}>
             View Details
           </PrimaryButton>
           <SecondaryButton onClick={() => window.open(tool.website, '_blank')}>

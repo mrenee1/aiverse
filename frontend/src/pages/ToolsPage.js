@@ -301,6 +301,7 @@ function ToolsPage() {
   } = useTools();
 
   useEffect(() => {
+    if (loading) return;
     const params = Object.fromEntries(searchParams.entries());
     if (params.search) {
       setSearchQuery(params.search);
@@ -308,7 +309,7 @@ function ToolsPage() {
     } else {
       fetchTools(params);
     }
-  }, [searchParams]);
+  }, [searchParams, loading]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -520,13 +521,13 @@ function ToolsPage() {
       ) : viewMode === 'grid' ? (
         <ToolsGrid>
           {tools.map((tool) => (
-            <ToolCard key={tool._id} tool={tool} />
+            <ToolCard key={tool.name} tool={tool} />
           ))}
         </ToolsGrid>
       ) : (
         <ToolsList>
           {tools.map((tool) => (
-            <ListItem key={tool._id}>
+            <ListItem key={tool.name}>
               <ListImage
                 src={tool.logo || 'https://via.placeholder.com/60x60/f1f5f9/64748b?text=AI'}
                 alt={tool.name}

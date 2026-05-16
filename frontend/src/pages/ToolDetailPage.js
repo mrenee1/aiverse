@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { ArrowRight, ExternalLink, Share2, Star, TrendingUp, Clock, Tag, CheckCircle } from 'lucide-react';
+import { ArrowRight, Calendar, ExternalLink, Globe, Share2, Star, Tag, TrendingUp, User } from 'lucide-react';
 import { useTools } from '../contexts/ToolsContext';
 
 const DetailContainer = styled.div`
@@ -395,10 +395,12 @@ function ToolDetailPage() {
                 <Globe size={16} />
                 <span>{tool.category}</span>
               </MetaItem>
-              <MetaItem>
-                <Calendar size={16} />
-                <span>{new Date(tool.createdAt).toLocaleDateString()}</span>
-              </MetaItem>
+              {tool.createdAt && (
+                <MetaItem>
+                  <Calendar size={16} />
+                  <span>{new Date(tool.createdAt).toLocaleDateString()}</span>
+                </MetaItem>
+              )}
             </ToolMeta>
           </ToolInfo>
         </ToolHeader>
@@ -486,10 +488,12 @@ function ToolDetailPage() {
             <Star size={16} />
             <span>Popularity: {tool.popularity}</span>
           </InfoItem>
-          <InfoItem>
-            <Calendar size={16} />
-            <span>Added: {new Date(tool.createdAt).toLocaleDateString()}</span>
-          </InfoItem>
+          {tool.createdAt && (
+            <InfoItem>
+              <Calendar size={16} />
+              <span>Added: {new Date(tool.createdAt).toLocaleDateString()}</span>
+            </InfoItem>
+          )}
           {tool.submittedBy && (
             <InfoItem>
               <User size={16} />
@@ -503,7 +507,7 @@ function ToolDetailPage() {
             <SidebarTitle>Similar Tools</SidebarTitle>
             <SimilarTools>
               {similarTools.map((similarTool) => (
-                <SimilarTool key={similarTool._id} to={`/tools/${similarTool._id}`}>
+                <SimilarTool key={similarTool.name} to={`/tools/${encodeURIComponent(similarTool.name)}`}>
                   <SimilarToolLogo 
                     src={similarTool.logo || 'https://via.placeholder.com/40x40/f1f5f9/64748b?text=AI'} 
                     alt={similarTool.name}
