@@ -512,7 +512,7 @@ function HomePage() {
           </DownloadFeatures>
         </DownloadContent>
         <DownloadButtonGroup>
-          <DownloadButton href="https://github.com/mrenee1/aiverse/releases" target="_blank" rel="noopener noreferrer">
+          <DownloadButton href="https://github.com/mrenee1/aiverse/releases/latest/download/AIverse.dmg" download="AIverse.dmg">
             <Download size={20} />
             Download for Mac
           </DownloadButton>
