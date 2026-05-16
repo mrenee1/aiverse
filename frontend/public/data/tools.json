@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Kaedim",
+    "description": "Magically Generate Custom 3D Models in Minutes. Stop losing hours to modeling tools. Generate stunning 3D art with nothing more than an image.",
+    "website": "http://www.kaedim3d.com",
+    "category": "Artificial Intelligence",
+    "tags": ["3D", "Modeling", "Art"],
+    "logo": "https://logo.clearbit.com/kaedim3d.com",
+    "screenshot": "https://image.thum.io/get/fullpage/http%3A%2F%2Fwww.kaedim3d.com",
+    "popularity": 341,
+    "featured": false,
+    "deals": false
+  },
+  {
+    "name": "TextureLab",
+    "description": "Instant and Unique 3D Textures for Your Next Game. Generate 3D textures for your game in seconds thanks to AI.",
+    "website": "http://www.texturelab.xyz",
+    "category": "Artificial Intelligence",
+    "tags": ["3D", "Textures", "Gaming"],
+    "logo": "https://logo.clearbit.com/texturelab.xyz",
+    "screenshot": "https://image.thum.io/get/fullpage/http%3A%2F%2Fwww.texturelab.xyz",
+    "popularity": 366,
+    "featured": false,
+    "deals": false
+  },
+  {
+    "name": "lumalabs",
+    "description": "Imagine 3D V1.2 (Alpha). An early experiment to prototype and create 3D with text. Access to generation is gradually expanding to everyone on the waitlist.",
+    "website": "https://lumalabs.ai",
+    "category": "Artificial Intelligence",
+    "tags": ["3D", "Text-to-3D", "Generation"],
+    "logo": "https://logo.clearbit.com/lumalabs.ai",
+    "screenshot": "https://image.thum.io/get/fullpage/https%3A%2F%2Flumalabs.ai",
+    "popularity": 289,
+    "featured": true,
+    "deals": false
+  },
+  {
+    "name": "ChatGPT",
+    "description": "AI-powered conversational assistant that can answer questions, write content, and help with various tasks using natural language processing.",
+    "website": "https://chat.openai.com",
+    "category": "Chatbots",
+    "tags": ["Conversational AI", "Assistant", "Writing"],
+    "logo": "https://logo.clearbit.com/openai.com",
+    "screenshot": "https://image.thum.io/get/fullpage/https%3A%2F%2Fchat.openai.com",
+    "popularity": 999,
+    "featured": true,
+    "deals": true
+  },
+  {
+    "name": "Midjourney",
+    "description": "AI image generation tool that creates stunning artwork from text descriptions. Known for its artistic style and high-quality outputs.",
+    "website": "https://midjourney.com",
+    "category": "Image Generation",
+    "tags": ["Art", "Image Generation", "Creative"],
+    "logo": "https://logo.clearbit.com/midjourney.com",
+    "screenshot": "https://image.thum.io/get/fullpage/https%3A%2F%2Fmidjourney.com",
+    "popularity": 876,
+    "featured": true,
+    "deals": false
+  },
+  {
+    "name": "DALL-E",
+    "description": "OpenAI's image generation AI that creates realistic images and art from natural language descriptions.",
+    "website": "https://openai.com/dall-e-2",
+    "category": "Image Generation",
+    "tags": ["Art", "Image Generation", "OpenAI"],
+    "logo": "https://logo.clearbit.com/openai.com",
+    "screenshot": "https://image.thum.io/get/fullpage/https%3A%2F%2Fopenai.com%2Fdall-e-2",
+    "popularity": 754,
+    "featured": true,
+    "deals": false
+  },
+  {
+    "name": "Stable Diffusion",
+    "description": "Open-source text-to-image AI model that can generate detailed images from text descriptions. Free to use and modify.",
+    "website": "https://stability.ai",
+    "category": "Image Generation",
+    "tags": ["Open Source", "Image Generation", "Free"],
+    "logo": "https://logo.clearbit.com/stability.ai",
+    "screenshot": "https://image.thum.io/get/fullpage/https%3A%2F%2Fstability.ai",
+    "popularity": 689,
+    "featured": true,
+    "deals": false
+  },
+  {
+    "name": "Claude",
+    "description": "AI assistant by Anthropic designed to be helpful, harmless, and honest. Great for analysis, writing, and coding tasks.",
+    "website": "https://claude.ai",
+    "category": "Chatbots",
+    "tags": ["Assistant", "Analysis", "Coding"],
+    "logo": "https://logo.clearbit.com/anthropic.com",
+    "screenshot": "https://image.thum.io/get/fullpage/https%3A%2F%2Fclaude.ai",
+    "popularity": 543,
+    "featured": false,
+    "deals": false
+  },
+  {
+    "name": "GitHub Copilot",
+    "description": "AI pair programmer that helps you write code faster. It suggests whole lines or entire functions right inside your editor.",
+    "website": "https://github.com/features/copilot",
+    "category": "Development",
+    "tags": ["Coding", "Assistant", "Productivity"],
+    "logo": "https://logo.clearbit.com/github.com",
+    "screenshot": "https://image.thum.io/get/fullpage/https%3A%2F%2Fgithub.com%2Ffeatures%2Fcopilot",
+    "popularity": 621,
+    "featured": true,
+    "deals": true
+  },
+  {
+    "name": "Notion AI",
+    "description": "AI-powered writing assistant integrated into Notion. Helps with brainstorming, drafting, and editing content.",
+    "website": "https://notion.so/product/ai",
+    "category": "Productivity",
+    "tags": ["Writing", "Productivity", "Notes"],
+    "logo": "https://logo.clearbit.com/notion.so",
+    "screenshot": "https://image.thum.io/get/fullpage/https%3A%2F%2Fnotion.so%2Fproduct%2Fai",
+    "popularity": 432,
+    "featured": false,
+    "deals": false
+  }
+]

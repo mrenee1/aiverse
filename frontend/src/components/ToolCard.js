@@ -174,10 +174,19 @@ function ToolCard({ tool }) {
           </ToolStats>
         </ToolMeta>
         
+        <CardActions>
+          <PrimaryButton onClick={() => navigate(`/tools/${tool.name}`)}>
+            View Details
+          </PrimaryButton>
+          <SecondaryButton onClick={() => window.open(tool.website, '_blank')}>
+            Visit Website
+          </SecondaryButton>
+        </CardActions>
+        
         <ToolTags>
           {tool.featured && (
             <FeaturedBadge>
-              <Star size={12} />
+              <Sparkles size={12} />
               Featured
             </FeaturedBadge>
           )}

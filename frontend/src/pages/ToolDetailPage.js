@@ -304,20 +304,20 @@ function ToolDetailPage() {
   const { fetchToolById, fetchTools } = useTools();
 
   useEffect(() => {
-    const fetchTool = async () => {
+    const fetchToolData = () => {
       try {
-        const toolData = await fetchToolById(id);
+        const toolData = fetchToolById(id);
         if (toolData) {
           setTool(toolData);
           
           // Fetch similar tools from the same category
-          const similarData = await fetchTools({
+          const similarData = fetchTools({
             category: toolData.category,
             limit: 5
           });
           
           // Filter out the current tool
-          const filtered = similarData.tools.filter(t => t._id !== id);
+          const filtered = similarData.tools.filter(t => t.name !== id);
           setSimilarTools(filtered);
         } else {
           setError('Tool not found');
@@ -329,7 +329,7 @@ function ToolDetailPage() {
       }
     };
 
-    fetchTool();
+    fetchToolData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 

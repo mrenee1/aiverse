@@ -553,7 +553,7 @@ function HomePage() {
               </ProductMeta>
             </ProductInfo>
             <ProductActions>
-              <PrimaryButton onClick={() => navigate(`/tools/${productOfTheDay._id}`)}>
+              <PrimaryButton onClick={() => navigate(`/tools/${productOfTheDay.name}`)}>
                 View Details
               </PrimaryButton>
               <SecondaryButton onClick={() => window.open(productOfTheDay.website, '_blank')}>

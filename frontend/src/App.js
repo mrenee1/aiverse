@@ -6,7 +6,6 @@ import Sidebar from './components/Sidebar';
 import HomePage from './pages/HomePage';
 import ToolsPage from './pages/ToolsPage';
 import ToolDetailPage from './pages/ToolDetailPage';
-import SubmitToolPage from './pages/SubmitToolPage';
 import Footer from './components/Footer';
 import { ToolsProvider } from './contexts/ToolsContext';
 
@@ -87,7 +86,6 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/tools" element={<ToolsPage />} />
                 <Route path="/tools/:id" element={<ToolDetailPage />} />
-                <Route path="/submit" element={<SubmitToolPage />} />
               </Routes>
             </ContentArea>
           </MainContent>

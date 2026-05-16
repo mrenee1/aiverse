@@ -1,15 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
 
 const ToolsContext = createContext();
-
-export const useTools = () => {
-  const context = useContext(ToolsContext);
-  if (!context) {
-    throw new Error('useTools must be used within a ToolsProvider');
-  }
-  return context;
-};
 
 export const ToolsProvider = ({ children }) => {
   const [tools, setTools] = useState([]);
@@ -17,116 +8,90 @@ export const ToolsProvider = ({ children }) => {
   const [featuredTools, setFeaturedTools] = useState([]);
   const [productOfTheDay, setProductOfTheDay] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [pagination, setPagination] = useState({
-    page: 1,
-    limit: 20,
-    total: 0,
-    pages: 0
-  });
+  const [error, setError] = useState(null);
 
+  // Load static data from JSON file
   useEffect(() => {
-    fetchCategories();
-    fetchFeaturedTools();
-    fetchProductOfTheDay();
+    const loadStaticData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('/data/tools.json');
+        const data = await response.json();
+        setTools(data);
+        
+        // Extract categories
+        const categoryMap = {};
+        data.forEach(tool => {
+          if (tool.category) {
+            categoryMap[tool.category] = (categoryMap[tool.category] || 0) + 1;
+          }
+        });
+        setCategories(Object.entries(categoryMap).map(([category, count]) => ({ category, count })));
+        
+        // Set featured tools
+        setFeaturedTools(data.filter(tool => tool.featured));
+        
+        // Set product of the day (first featured tool)
+        const featured = data.find(tool => tool.featured);
+        setProductOfTheDay(featured || data[0]);
+        
+      } catch (err) {
+        setError('Failed to load tools data');
+        console.error('Error loading static data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadStaticData();
   }, []);
 
-  const fetchTools = async (params = {}) => {
-    setLoading(true);
-    try {
-      const response = await axios.get('/api/tools', { params });
-      setTools(response.data.tools);
-      setPagination(response.data.pagination);
-      return response.data;
-    } catch (error) {
-      console.error('Failed to fetch tools:', error);
-      return { tools: [], pagination: {} };
-    } finally {
-      setLoading(false);
+  // Filter tools locally
+  const fetchTools = (filters = {}) => {
+    let filtered = [...tools];
+    
+    if (filters.category) {
+      filtered = filtered.filter(tool => tool.category === filters.category);
     }
+    if (filters.featured) {
+      filtered = filtered.filter(tool => tool.featured);
+    }
+    if (filters.deals) {
+      filtered = filtered.filter(tool => tool.deals);
+    }
+    if (filters.search) {
+      const searchLower = filters.search.toLowerCase();
+      filtered = filtered.filter(tool => 
+        tool.name.toLowerCase().includes(searchLower) ||
+        tool.description.toLowerCase().includes(searchLower) ||
+        tool.tags.some(tag => tag.toLowerCase().includes(searchLower))
+      );
+    }
+    
+    // Sort
+    if (filters.sort === 'popularity') {
+      filtered.sort((a, b) => b.popularity - a.popularity);
+    } else if (filters.sort === 'name') {
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    
+    // Pagination
+    const page = filters.page || 1;
+    const limit = filters.limit || 12;
+    const start = (page - 1) * limit;
+    const paginated = filtered.slice(start, start + limit);
+    
+    return { tools: paginated, total: filtered.length };
   };
 
-  const fetchToolById = async (id) => {
-    try {
-      const response = await axios.get(`/api/tools/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error('Failed to fetch tool:', error);
-      return null;
-    }
+  // Search tools locally
+  const searchTools = (query, filters = {}) => {
+    return fetchTools({ ...filters, search: query });
   };
 
-  const fetchCategories = async () => {
-    try {
-      const response = await axios.get('/api/tools/categories/list');
-      setCategories(response.data);
-      return response.data;
-    } catch (error) {
-      console.error('Failed to fetch categories:', error);
-      return [];
-    }
-  };
-
-  const fetchFeaturedTools = async () => {
-    try {
-      const response = await axios.get('/api/tools/featured/list');
-      setFeaturedTools(response.data);
-      return response.data;
-    } catch (error) {
-      console.error('Failed to fetch featured tools:', error);
-      return [];
-    }
-  };
-
-  const fetchProductOfTheDay = async () => {
-    try {
-      const response = await axios.get('/api/tools/product-of-the-day/today');
-      setProductOfTheDay(response.data);
-      return response.data;
-    } catch (error) {
-      console.error('Failed to fetch product of the day:', error);
-      return null;
-    }
-  };
-
-  const searchTools = async (query, params = {}) => {
-    setLoading(true);
-    try {
-      const response = await axios.get('/api/tools/search/query', { 
-        params: { q: query, ...params } 
-      });
-      setTools(response.data.tools);
-      setPagination(response.data.pagination);
-      return response.data;
-    } catch (error) {
-      console.error('Failed to search tools:', error);
-      return { tools: [], pagination: {} };
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const submitTool = async (toolData) => {
-    try {
-      const response = await axios.post('/api/submissions', toolData);
-      return { success: true, data: response.data };
-    } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.error || 'Submission failed' 
-      };
-    }
-  };
-
-  const getUserSubmissions = async (params = {}) => {
-    try {
-      const response = await axios.get('/api/submissions/my', { params });
-      return { success: true, data: response.data };
-    } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.error || 'Failed to fetch submissions' 
-      };
-    }
+  // Get tool by ID
+  const fetchToolById = (id) => {
+    return tools.find(tool => tool.name === id) || tools[0];
   };
 
   const value = {
@@ -135,15 +100,13 @@ export const ToolsProvider = ({ children }) => {
     featuredTools,
     productOfTheDay,
     loading,
-    pagination,
+    error,
     fetchTools,
-    fetchToolById,
-    fetchCategories,
-    fetchFeaturedTools,
-    fetchProductOfTheDay,
+    fetchCategories: () => {}, // No-op since categories are loaded with tools
+    fetchFeaturedTools: () => {}, // No-op since featured tools are loaded with tools
+    fetchProductOfTheDay: () => {}, // No-op since product of day is loaded with tools
     searchTools,
-    submitTool,
-    getUserSubmissions
+    fetchToolById
   };
 
   return (
@@ -151,4 +114,12 @@ export const ToolsProvider = ({ children }) => {
       {children}
     </ToolsContext.Provider>
   );
+};
+
+export const useTools = () => {
+  const context = useContext(ToolsContext);
+  if (!context) {
+    throw new Error('useTools must be used within a ToolsProvider');
+  }
+  return context;
 };

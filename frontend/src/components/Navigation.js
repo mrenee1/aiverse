@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Search, Menu, X, Plus } from 'lucide-react';
+import { Search, Menu, X } from 'lucide-react';
 const NavContainer = styled.nav`
   position: fixed;
   top: 0;
@@ -167,9 +167,7 @@ function Navigation() {
           <Logo>AIverse</Logo>
           
           <NavLinks>
-            <NavLink to="/tools">Analytics</NavLink>
-            <NavLink to="/submit">Submit Tool</NavLink>
-            <NavLink to="/subscribe">Subscribe</NavLink>
+            <NavLink to="/tools">Tools</NavLink>
           </NavLinks>
 
           <NavActions>
@@ -185,10 +183,6 @@ function Navigation() {
               </form>
             </SearchContainer>
 
-            <PrimaryButton onClick={() => navigate('/submit')}>
-              <Plus size={16} />
-              Submit Tool
-            </PrimaryButton>
 
             <MobileMenuButton onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -199,13 +193,7 @@ function Navigation() {
 
       <MobileMenu open={mobileMenuOpen}>
         <MobileMenuLink to="/tools" onClick={() => setMobileMenuOpen(false)}>
-          Analytics
-        </MobileMenuLink>
-        <MobileMenuLink to="/submit" onClick={() => setMobileMenuOpen(false)}>
-          Submit Tool
-        </MobileMenuLink>
-        <MobileMenuLink to="/subscribe" onClick={() => setMobileMenuOpen(false)}>
-          Subscribe
+          Tools
         </MobileMenuLink>
       </MobileMenu>
     </>
